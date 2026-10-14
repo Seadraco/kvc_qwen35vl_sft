@@ -19,3 +19,5 @@ src/*.egg-info
 environment/*.tar.gz
 model_cache
 models
+codex_context
+docs/COMPANY_REPOSITORY.md

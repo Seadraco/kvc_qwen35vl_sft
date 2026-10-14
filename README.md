@@ -60,6 +60,7 @@ CUDA_VISIBLE_DEVICES=0,1 bash scripts/train_smoke.sh outputs/container_smoke
 
 ## 1. 文档导航
 
+- [另一台服务器复现](docs/REPRODUCE.md)：GitHub 克隆、环境选择、固定版本模型下载、双卡测试与可选资源同步。
 - [环境、依赖、镜像与迁移](docs/ENVIRONMENT.md)：从空环境安装、库分类、CUDA 扩展、下载、锁文件及 H800 验收。
 - [本次镜像审计记录](reports/IMAGE_AUDIT.json)：依赖覆盖、CPU 检查、路径与尚未完成的容器/GPU 验收。
 - [当前目录双卡验收记录](reports/DUAL_GPU_ACCEPTANCE.json)：GPU 5/7 的实际训练、回载推理及上传包验证状态。

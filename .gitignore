@@ -18,3 +18,16 @@ reports/*
 !reports/CLEANUP_AUDIT.json
 !reports/DUAL_GPU_ACCEPTANCE.json
 !reports/PROJECT_MIGRATION.json
+
+# Private conversation exports; transfer separately, never publish by default.
+/codex_context/
+
+# Local-only company transfer draft and credentials; never publish by default.
+/docs/COMPANY_REPOSITORY.md
+.env
+.env.*
+.hf_token
+.aws/
+.ssh/
+*.pem
+*.key

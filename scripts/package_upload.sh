@@ -19,6 +19,8 @@ tar -czf "$ARCHIVE" \
   --exclude="$PROJECT_NAME/model_cache" \
   --exclude="$PROJECT_NAME/data/raw" \
   --exclude="$PROJECT_NAME/.cache" \
+  --exclude="$PROJECT_NAME/codex_context" \
+  --exclude="$PROJECT_NAME/docs/COMPANY_REPOSITORY.md" \
   --exclude="$PROJECT_NAME/outputs" \
   --exclude="$PROJECT_NAME/.git" \
   --exclude="$PROJECT_NAME/.venv" \

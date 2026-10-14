@@ -351,7 +351,9 @@ def test_upload_package_excludes_runtime_artifacts_and_credentials(tmp_path):
     (project / "scripts").mkdir(parents=True)
     shutil.copy2(PROJECT / "scripts/package_upload.sh", project / "scripts/package_upload.sh")
     (project / "README.md").write_text("self-contained project\n")
-    for folder in ("models", "model_cache", "data/raw", ".cache", "outputs", "__pycache__"):
+    (project / "docs").mkdir()
+    (project / "docs/COMPANY_REPOSITORY.md").write_text("test-only-private-transfer-draft")
+    for folder in ("models", "model_cache", "data/raw", ".cache", "codex_context", "outputs", "__pycache__"):
         (project / folder).mkdir(parents=True, exist_ok=True)
         (project / folder / "must-not-upload").write_text("test-only-runtime-placeholder")
     for name in (".env", ".env.local", ".hf_token", "credential.key", "credential.pem"):

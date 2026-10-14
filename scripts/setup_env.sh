@@ -31,6 +31,16 @@ export PYTHONNOUSERSITE=1
 export MAX_JOBS="${MAX_JOBS:-4}"
 export DS_BUILD_OPS=0
 
+export CUDA_HOME="${CUDA_HOME:-/usr/local/cuda-12.4}"
+if [[ "${KVC_INSTALL_CAUSAL_CONV1D:-1}" == 1 ]]; then
+  if [[ ! -x "$CUDA_HOME/bin/nvcc" ]]; then
+    echo "CUDA compiler not found at $CUDA_HOME/bin/nvcc; install CUDA 12.4 devel." >&2
+    exit 1
+  fi
+  "$CUDA_HOME/bin/nvcc" --version | grep -F 'release 12.4,'
+  export PATH="$CUDA_HOME/bin:$PATH"
+fi
+
 CONDA_LOCK="$PROJECT_ROOT/environment/conda-explicit-linux-64.txt"
 if [[ ! -x "$ENV_PREFIX/bin/python" ]]; then
   if [[ "${KVC_USE_LOCK:-1}" == 1 && -s "$CONDA_LOCK" ]]; then
@@ -59,7 +69,12 @@ unset PYTHONPATH
 # conda-tracked files and make conda-pack fail despite `pip check` succeeding.
 "$PYTHON_BIN" -m pip install --no-cache-dir \
   --index-url https://download.pytorch.org/whl/cu124 \
-  torch==2.6.0 torchvision==0.21.0
+  torch==2.6.0+cu124 torchvision==0.21.0+cu124
+
+# Reuse the reviewed wheel included in Git, before the resolver sees Decord.
+DECORD_WHEEL="$PROJECT_ROOT/environment/wheels/decord-0.6.0-1kvc-py3-none-manylinux2010_x86_64.whl"
+printf '%s  %s\n' '19c4411d79ff796a9d9e30d46ed6cd222b4023f467be9168f8f67a141583320d' "$DECORD_WHEEL" | sha256sum -c -
+"$PYTHON_BIN" -m pip install --no-cache-dir --no-deps "$DECORD_WHEEL"
 
 INSTALL_REQUIREMENTS="$PROJECT_ROOT/requirements.txt"
 if [[ "${KVC_USE_LOCK:-1}" == 1 && -s "$PROJECT_ROOT/environment/requirements-lock.txt" ]]; then
@@ -67,19 +82,17 @@ if [[ "${KVC_USE_LOCK:-1}" == 1 && -s "$PROJECT_ROOT/environment/requirements-lo
 fi
 "$PYTHON_BIN" -m pip install --no-cache-dir \
   --constraint "$PROJECT_ROOT/constraints-tested.txt" \
-  --requirement "$INSTALL_REQUIREMENTS"
+  --requirement <(sed '/^[[:space:]]*deepspeed==/d' "$INSTALL_REQUIREMENTS")
+
+# DeepSpeed reads the installed Torch during metadata/build generation.
+"$PYTHON_BIN" -m pip install --no-cache-dir --no-build-isolation \
+  --constraint "$PROJECT_ROOT/constraints-tested.txt" \
+  deepspeed==0.18.8 torch==2.6.0+cu124 torchvision==0.21.0+cu124
 
 # Extensions import torch at build time. Install separately, never replacing
 # the already selected torch wheel. Keep this step explicit for image builds.
 if [[ "${KVC_INSTALL_CAUSAL_CONV1D:-1}" == 1 ]]; then
-  export CUDA_HOME="${CUDA_HOME:-/usr/local/cuda-12.4}"
-  if [[ ! -x "$CUDA_HOME/bin/nvcc" ]]; then
-    echo "CUDA compiler not found at $CUDA_HOME/bin/nvcc." >&2
-    echo "Install CUDA 12.4 devel, or explicitly use KVC_INSTALL_CAUSAL_CONV1D=0 for fallback-only experiments." >&2
-    exit 1
-  fi
-  export PATH="$CUDA_HOME/bin:$PATH"
-  export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.9;9.0}"
+  export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.0;8.6;8.9;9.0}"
   # Upstream may guess a prebuilt wheel with the wrong libstdc++ ABI. Compile
   # against the installed torch; never force its CXX11 ABI flag to a new value.
   export CAUSAL_CONV1D_FORCE_BUILD=TRUE
@@ -88,10 +101,6 @@ if [[ "${KVC_INSTALL_CAUSAL_CONV1D:-1}" == 1 ]]; then
     --force-reinstall --no-binary causal-conv1d \
     causal-conv1d==1.6.0
 fi
-
-# The official Decord py3-none wheel has an inconsistent cp36 internal tag.
-# Correct packaging metadata with upstream hash verification; never bypass pip.
-"$PYTHON_BIN" "$PROJECT_ROOT/scripts/repair_decord_wheel.py" --install
 
 "$PYTHON_BIN" -m pip install --no-cache-dir --no-deps --editable "$PROJECT_ROOT"
 "$PYTHON_BIN" -m pip check

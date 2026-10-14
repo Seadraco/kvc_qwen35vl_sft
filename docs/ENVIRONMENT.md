@@ -56,7 +56,7 @@
 2. `constraints-tested.txt`：关键兼容边界，阻止 resolver 更换 torch、模型框架和视频栈。
 3. `environment/requirements-lock.txt`：本次环境解析出的全部普通 pip 依赖精确版本。由环境导出；不是手工猜测所有间接依赖。
 
-conda 管理的 pip/setuptools/wheel、torch/torchvision CUDA wheel、causal-conv1d 编译、Decord 修复 wheel 和本项目安装单独执行，不混入普通 lock 安装。`pip-freeze.txt` 若保留 editable 或本地 wheel 原路径，只用于审计，不直接拿它跨机器安装。
+conda 管理的 pip/setuptools/wheel、torch/torchvision CUDA wheel、causal-conv1d 编译、Decord 修复 wheel 和本项目安装单独执行，不混入普通 lock 安装。DeepSpeed 仍记录在 lock 中，`setup_env.sh` 会将其从普通安装阶段过滤，再关闭构建隔离单独安装；其他普通依赖保持默认构建隔离。脚本先校验并安装仓库附带的修复 Decord wheel，避免先安装上游 wheel 再覆盖。`pip-freeze.txt` 若保留 editable 或本地 wheel 原路径，只用于审计，不直接拿它跨机器安装。
 
 ### 2.2 依赖覆盖范围
 
