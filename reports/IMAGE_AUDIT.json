@@ -1,0 +1,126 @@
+{
+  "audit_date": "2026-10-13",
+  "subsequent_project_migration": "PROJECT_MIGRATION.json",
+  "subsequent_project_cleanup": "CLEANUP_AUDIT.json",
+  "subsequent_host_dual_gpu_acceptance": "DUAL_GPU_ACCEPTANCE.json",
+  "working_directory": "/home/tianhl/compression/kuaishou/kvc_qwen35vl_sft",
+  "canonical_image_recipe": "Dockerfile",
+  "recipe_sha256": "eaf2523ef0597cc546cdec48a581d2cac0f40d17bcf6f3e2c1bace57b04e484e",
+  "migration_recipe_change": "Mounted project path in an installation comment updated; trailing whitespace after the Torch RUN continuation backslash removed. Conda name and pinned dependencies are unchanged",
+  "comment_cleanup": {
+    "previous_recipe_sha256": "bce6186f3f8301f3bc1f632e5e1bbd49eb726e91dd98cc9035e869e646aee8db",
+    "non_comment_lines_unchanged": true,
+    "comment_lines_before": 67,
+    "comment_lines_after": 23,
+    "dockerfile_tests_passed": 25
+  },
+  "recipe_simplification": {
+    "date_utc": "2026-10-13",
+    "previous_recipe_sha256": "730fba69fa458896a321c43edf647db5741072b9d38f218b57ec8c6e7e955e2c",
+    "installation_order": ["Conda", "official cu124 Torch/torchvision", "repaired Decord wheel", "ordinary project dependencies", "DeepSpeed", "Causal Conv1d"],
+    "decord": "Install the metadata-repaired wheel once before ordinary dependency resolution; keep the version guard and remove force-reinstall",
+    "build_isolation": "Default for ordinary dependencies; disabled only in the DeepSpeed and Causal Conv1d install commands",
+    "deepspeed_runtime_dependencies": "Still resolved by pip, with the selected Torch and NVML versions protected",
+    "ninja": "Explicitly installed only by pip; removed from apt and Conda create",
+    "torch_abi_check": "Public torch.compiled_with_cxx11_abi() API; expected ABI=0 for the pinned build",
+    "shell_path_checks": "Both login and non-login interactive Bash checks retained",
+    "current_cpu_pytest_passed": 143,
+    "current_cpu_pytest_seconds": 37.04,
+    "new_image_built": false,
+    "existing_gpu_acceptance_and_upload_archive": "Historical artifacts left unchanged; they are not evidence of a new image build and the previous archive does not contain this revision"
+  },
+  "base_image": "registry.corp.kuaishou.com/kml/v_cuda:12.4.0-devel-ubuntu22.04",
+  "artifact_kind": "Dockerfile recipe, not an exported OCI image or docker-save archive",
+  "coverage": {
+    "requirements_txt_entries_checked": 43,
+    "constraints_tested_txt_entries_checked": 24,
+    "requirement_and_constraint_entries_missing_from_recipe": [],
+    "unique_direct_pip_pins": 55,
+    "project_src_and_scripts_direct_external_imports_have_package_pins": true,
+    "transitive_dependencies": "Resolved by pip during the future image build; not fully locked by this simplified recipe",
+    "conda": {
+      "installer": "Miniforge3 25.3.0-3 with SHA256 verification",
+      "channel": "conda-forge",
+      "creation": "conda create --name kvc_qwen35_sft",
+      "prefix": "/opt/conda/envs/kvc_qwen35_sft",
+      "python": "3.12.15",
+      "ffmpeg": "7.1.1",
+      "extra_venv_created": false
+    },
+    "training": {
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "ms_swift": "4.5.3",
+      "transformers": "5.9.0",
+      "lora": "PEFT 0.20.0, TRL 0.29.1",
+      "distributed": "PyTorch DDP/torchrun/NCCL, Accelerate 1.14.0, DeepSpeed 0.18.8",
+      "linear_attention": "flash-linear-attention/fla-core 0.4.2, causal-conv1d 1.6.0 built from source",
+      "attention_implementation": "SDPA; the separate flash-attn package is not required by the current configs",
+      "deepspeed_optional_native_ops_prebuilt": false
+    },
+    "media_and_data": [
+      "qwen-vl-utils", "torchcodec", "PyAV", "Decord with reviewed metadata-only repair",
+      "OpenCV headless", "FFmpeg and shared libraries", "datasets", "NumPy", "pandas",
+      "SciPy", "Pillow", "imageio", "JSON Schema", "PyYAML", "LPIPS", "torchmetrics"
+    ],
+    "company_and_development_tools": [
+      "company HTTP/HTTPS proxy and no_proxy", "system/build tools", "Node.js 20.19.5",
+      "MyFlicker CLI", "code-server 4.140.0", "global nvitop entrypoint"
+    ],
+    "runtime_path": [
+      "/opt/conda/envs/kvc_qwen35_sft/bin", "/opt/conda/bin", "/usr/local/cuda/bin", "/opt/node/bin"
+    ],
+    "login_shell": "Conda initialization/default activation plus Node/CUDA PATH restoration",
+    "code_server": "--ignore-last-opened; old folder/workspace URL parameters still need clearing",
+    "not_installed": [
+      "LLaVA/lmms-eval/codec-video-prep", "extra venv environments", "external flash-attn",
+      "vLLM/SGLang/Megatron/bitsandbytes", "optional Codex CLI"
+    ]
+  },
+  "verification": {
+    "cpu_pytest_passed": 143,
+    "all_active_project_shell_scripts_bash_syntax_passed": true,
+    "docker_run_bash_and_inline_python_syntax_passed": true,
+    "image_build_login_and_interactive_shell_path_assertions_added": true,
+    "those_shell_assertions_executed_in_new_image_this_turn": false,
+    "embedded_launcher_argument_tests_passed": true,
+    "decord_repair_tampered_hash_rejection_test_passed": true,
+    "host_training_environment": "/home/tianhl/anaconda3/envs/kvc_qwen35_sft",
+    "host_gpu_visibility_during_python_checks": "CUDA_VISIBLE_DEVICES was empty",
+    "host_executed_cpu_recipe_snippets_passed": 5,
+    "host_torchcodec_and_decord_actual_cpu_frame_decode_passed": true,
+    "host_project_check_env_with_smoke_dataset_status": "ok",
+    "host_project_video_backend": "torchcodec",
+    "host_project_sampled_video_shape": [8, 3, 320, 192],
+    "host_environment_is_not_identical_to_new_image": true,
+    "host_vs_recipe_nvml_pin": {
+      "host": "13.615.71",
+      "recipe": "13.595.45 for nvitop 1.7.1 compatibility"
+    },
+    "new_image_built_this_turn": false,
+    "new_image_gpu_kernels_verified": false,
+    "new_image_nccl_multi_gpu_verified": false,
+    "new_image_qwen35_weight_loading_or_sft_verified": false
+  },
+  "consolidation": {
+    "original_project": "../kvc_qwen3vl_sft",
+    "original_project_and_outer_dockerfiles_preserved": false,
+    "original_project_source_recovery_archive": "outputs/migration_archive/kvc_qwen3vl_sft-source-before-removal-20261013.tar.gz",
+    "outer_reference_dockerfiles_preserved": true,
+    "source_config_schema_and_existing_script_files_compared_unchanged": 34,
+    "self_contained_smoke_videos": ["data/videos/82917573_10s.mp4", "data/videos/82917573.mp4"],
+    "copied_video_hashes_match_original": true,
+    "legacy_docker_recipes_and_profiles": "Removed from current project; recovery location is recorded in CLEANUP_AUDIT.json",
+    "large_old_conda_environments_model_weights_and_outputs_not_copied": true,
+    "runtime_source_install": "bash scripts/install_project.sh (editable, --no-deps --no-build-isolation)",
+    "ide_workspace": "kvc_qwen35vl_sft.code-workspace"
+  },
+  "remaining_acceptance": [
+    "Rebuild using this project's Dockerfile on the company platform and pass its build checks",
+    "Mount this project, model weights and actual training data into the new container",
+    "Run scripts/install_project.sh, conda env list and python -m pip check",
+    "Run scripts/check_kernels.py and scripts/check_distributed.py on assigned GPUs",
+    "Run scripts/preflight.sh and train_smoke.sh with a fixed Qwen3.5-9B revision",
+    "Provide the real CAE action schema/table and measured dataset for formal business training; only smoke fixtures are included"
+  ]
+}

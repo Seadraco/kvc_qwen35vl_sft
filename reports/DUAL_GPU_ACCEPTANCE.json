@@ -1,0 +1,221 @@
+{
+  "date_utc": "2026-10-13",
+  "subsequent_project_migration": "PROJECT_MIGRATION.json",
+  "historical_paths_describe_original_test_execution": true,
+  "current_artifact_locations": {
+    "project_directory": "/home/tianhl/compression/kuaishou/kvc_qwen35vl_sft",
+    "training_output": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train",
+    "latest_full_state_checkpoint": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/checkpoint-22",
+    "base_model": "models/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a"
+  },
+  "status": "passed",
+  "project_directory": "/home/tianhl/compression/kuaishou/kvc_qwen35_sft",
+  "run_directory": "outputs/dual_gpu_acceptance_20261013_s1HDjO",
+  "test_environment": "Existing host Conda /home/tianhl/anaconda3/envs/kvc_qwen35_sft; not a newly built container",
+  "physical_gpus": [
+    5,
+    7
+  ],
+  "model": "Qwen/Qwen3.5-9B",
+  "model_revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+  "model_files_verified_against_download_manifest": 15,
+  "model_weight_directory": "models/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+  "training": {
+    "steps": 20,
+    "world_size": 2,
+    "per_device_batch_size": 1,
+    "gradient_accumulation_steps": 1,
+    "global_batch_size": 2,
+    "lora_rank": 8,
+    "precision": "BF16",
+    "attention": "SDPA plus FLA/Causal Conv1d",
+    "first_loss": 0.40141603350639343,
+    "last_loss": 0.0000404618403990753,
+    "all_losses_and_gradients_finite": true,
+    "trainable_parameters": 21639168,
+    "vision_parameters_trainable": 0,
+    "adapter_verification": {
+      "all_tensors_finite": true,
+      "tensor_count": 496,
+      "lora_B_tensors": 248,
+      "nonzero_B_tensors": 248,
+      "max_abs_B": 0.001019843970425427,
+      "note": "For the default LoRA initialization, B starts at zero; this verifies a nonzero learned update."
+    },
+    "peak_reserved_gib_per_rank": [
+      35.25,
+      35.25
+    ],
+    "completed_ranks": [
+      {
+        "rank": 0,
+        "status": "completed",
+        "step": 20
+      },
+      {
+        "rank": 1,
+        "status": "completed",
+        "step": 20
+      }
+    ]
+  },
+  "kernels": {
+    "5": {
+      "status": "ok",
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "torch": "2.6.0+cu124",
+      "cuda_runtime": "12.4",
+      "fla_version": "0.4.2",
+      "fla_bf16_forward_backward": true,
+      "fla_loss": 0.00003548574750311673,
+      "causal_conv1d_version": "1.6.0",
+      "causal_conv1d_bf16_forward_backward": true
+    },
+    "7": {
+      "status": "ok",
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "torch": "2.6.0+cu124",
+      "cuda_runtime": "12.4",
+      "fla_version": "0.4.2",
+      "fla_bf16_forward_backward": true,
+      "fla_loss": 0.00003548574750311673,
+      "causal_conv1d_version": "1.6.0",
+      "causal_conv1d_bf16_forward_backward": true
+    }
+  },
+  "nccl": [
+    {
+      "status": "ok",
+      "rank": 0,
+      "world_size": 2,
+      "device": 0,
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "capability": [
+        8,
+        9
+      ],
+      "torch": "2.6.0+cu124",
+      "cuda_runtime": "12.4",
+      "nccl": [
+        2,
+        21,
+        5
+      ],
+      "all_reduce": 3,
+      "bf16_backward_finite": true,
+      "nccl_environment": {
+        "NCCL_P2P_DISABLE": null,
+        "NCCL_IB_DISABLE": null,
+        "NCCL_SOCKET_IFNAME": null
+      }
+    },
+    {
+      "status": "ok",
+      "rank": 1,
+      "world_size": 2,
+      "device": 1,
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "capability": [
+        8,
+        9
+      ],
+      "torch": "2.6.0+cu124",
+      "cuda_runtime": "12.4",
+      "nccl": [
+        2,
+        21,
+        5
+      ],
+      "all_reduce": 3,
+      "bf16_backward_finite": true,
+      "nccl_environment": {
+        "NCCL_P2P_DISABLE": null,
+        "NCCL_IB_DISABLE": null,
+        "NCCL_SOCKET_IFNAME": null
+      }
+    }
+  ],
+  "inference": [
+    {
+      "sample_index": 0,
+      "schema_valid": true,
+      "matches_ground_truth": true,
+      "raw_response_matches_label": true,
+      "adapter": "/home/tianhl/compression/kuaishou/kvc_qwen35_sft/outputs/dual_gpu_acceptance_20261013_s1HDjO/train/checkpoint-20",
+      "base_model": "/home/tianhl/compression/kuaishou/kvc_qwen35_sft/models/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a"
+    },
+    {
+      "sample_index": 1,
+      "schema_valid": true,
+      "matches_ground_truth": true,
+      "raw_response_matches_label": true,
+      "adapter": "/home/tianhl/compression/kuaishou/kvc_qwen35_sft/outputs/dual_gpu_acceptance_20261013_s1HDjO/train/checkpoint-20",
+      "base_model": "/home/tianhl/compression/kuaishou/kvc_qwen35_sft/models/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a"
+    }
+  ],
+  "checkpoint20_state": {
+    "optimizer_step_values": [
+      20
+    ],
+    "optimizer_parameter_states": 496,
+    "scheduler_last_epoch": 20,
+    "trainer_global_step": 20,
+    "rng_files": [
+      "rng_state_0.pth",
+      "rng_state_1.pth"
+    ]
+  },
+  "resume": {
+    "status": "ok",
+    "from_step": 20,
+    "to_step": 22,
+    "optimizer_step_values": [
+      22
+    ],
+    "optimizer_parameter_states": 496,
+    "scheduler_last_epoch": 22,
+    "trainer_global_step": 22,
+    "changed_adapter_tensors": 496,
+    "rng_files": [
+      "rng_state_0.pth",
+      "rng_state_1.pth"
+    ],
+    "manifest_checkpoint": "checkpoint-22",
+    "resume_only_model": false,
+    "note": "Extended-budget full-state resume check; not bitwise trajectory equivalence."
+  },
+  "cpu_tests": {
+    "passed": 140,
+    "elapsed_seconds": 3.88
+  },
+  "code_portability": {
+    "no_required_sibling_swift_checkout": true,
+    "no_author_home_path_in_launchers": true,
+    "source_and_dataset_plugins_within_current_project": true,
+    "source_has_no_external_symlinks": true,
+    "upload_package_script": "scripts/package_upload.sh",
+    "upload_validation_status": "passed: independently extracted project, all 140 CPU tests passed",
+    "extracted_cpu_tests_passed": 140,
+    "extracted_cpu_tests_elapsed_seconds": 4.03,
+    "capacity_fixture_data_is_explicit_not_a_sibling_default": true,
+    "upload_archive": "outputs/uploads/kvc_qwen35_sft-code-tested-20261013-s1HDjO.tar.gz",
+    "upload_archive_checksum_file": "outputs/uploads/kvc_qwen35_sft-code-tested-20261013-s1HDjO.tar.gz.sha256",
+    "upload_contains_smoke_videos": true,
+    "upload_excludes_weights_caches_checkpoints_and_credentials": true
+  },
+  "new_docker_image_built_this_turn": false,
+  "dockerfile_modified_this_turn": false,
+  "scope_limits": [
+    "Two simulated smoke samples; not formal measured data or generalization/BD-Rate validation",
+    "Host training success does not certify a new Docker image or a different GPU/driver"
+  ],
+  "completed_gpu_processes_released_devices": true,
+  "logs": {
+    "training20": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train.log",
+    "training22_resume": "outputs/dual_gpu_acceptance_20261013_s1HDjO/resume.log",
+    "summary20": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train20_summary.json",
+    "summary22": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train22_summary.json",
+    "inference0": "outputs/dual_gpu_acceptance_20261013_s1HDjO/infer_sample_0.json",
+    "inference1": "outputs/dual_gpu_acceptance_20261013_s1HDjO/infer_sample_1.json"
+  }
+}

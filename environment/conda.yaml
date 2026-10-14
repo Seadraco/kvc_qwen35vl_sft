@@ -1,0 +1,13 @@
+# Human-readable bootstrap. conda-explicit-linux-64.txt, when exported, is the
+# exact binary-package snapshot. Python libraries are installed by setup_env.sh.
+name: kvc_qwen35_sft
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip=26.2.1
+  - setuptools=82.0.1
+  - wheel=0.48.0
+  - ffmpeg=7.1.1
+  - pkg-config
+  - ninja

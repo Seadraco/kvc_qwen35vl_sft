@@ -1,0 +1,84 @@
+ENV:
+  PYTORCH_CUDA_ALLOC_CONF: "expandable_segments:True"
+  TOKENIZERS_PARALLELISM: "false"
+  FORCE_QWENVL_VIDEO_READER: "torchcodec"
+  TORCHCODEC_NUM_THREADS: "2"
+  VIDEO_MAX_TOKEN_NUM: "64"
+  VIDEO_MIN_TOKEN_NUM: "32"
+  FPS_MAX_FRAMES: "8"
+  MAX_RATIO: "200"
+  FRAME_FACTOR: "2"
+  FPS: "2.0"
+  FPS_MIN_FRAMES: "4"
+  SPATIAL_MERGE_SIZE: "2"
+  MODEL_SEQ_LEN: "128000"
+
+model: Qwen/Qwen3.5-9B
+model_revision: c202236235762e1c871ad0ccb60c8ee5ba337b9a
+model_type: qwen3_5
+template: qwen3_5
+template_backend: swift
+enable_thinking: false
+add_non_thinking_prefix: true
+external_plugins:
+  - src/kvc_sft/torchcodec_compat.py
+  - src/kvc_sft/training_observer.py
+callbacks:
+  - kvc_runtime
+dataset: data/kvc_sft_smoke.jsonl
+split_dataset_ratio: 0
+
+tuner_type: lora
+target_modules: all-linear
+lora_rank: 8
+lora_alpha: 32
+lora_dropout: 0.05
+freeze_vit: true
+freeze_aligner: true
+
+torch_dtype: bfloat16
+attn_impl: sdpa
+gradient_checkpointing: true
+vit_gradient_checkpointing: false
+max_length: 2048
+packing: false
+padding_free: false
+
+per_device_train_batch_size: 1
+# Two rows / two ranks: one full global batch of 2 per epoch.
+gradient_accumulation_steps: 1
+ddp_find_unused_parameters: false
+ddp_timeout: 1800
+learning_rate: 0.0001
+optim: adamw_torch
+weight_decay: 0.1
+adam_beta1: 0.9
+adam_beta2: 0.95
+adam_epsilon: 1.0e-8
+max_grad_norm: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0
+max_steps: 2
+label_smoothing_factor: 0.0
+acc_strategy: token
+
+save_strategy: steps
+save_steps: 2
+save_total_limit: 2
+logging_steps: 1
+eval_strategy: "no"
+report_to: none
+dataset_num_proc: 1
+dataloader_num_workers: 0
+# ms-swift defaults persistent_workers=true, invalid with a zero-worker loader.
+dataloader_persistent_workers: false
+# Leave prefetch_factor unset: ms-swift keeps it None when num_workers=0.
+load_from_cache_file: false
+strict: true
+loss_scale: ignore_empty_think
+save_only_model: false
+seed: 42
+data_seed: 42
+
+output_dir: outputs/smoke
+add_version: false

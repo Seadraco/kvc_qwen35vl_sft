@@ -1,0 +1,18 @@
+{
+  "build": "1kvc",
+  "changed_archive_members": [
+    "decord-0.6.0.dist-info/RECORD",
+    "decord-0.6.0.dist-info/WHEEL"
+  ],
+  "new_tag": "py3-none-manylinux2010_x86_64",
+  "old_tag": "cp36-cp36m-manylinux2010_x86_64",
+  "package": "decord",
+  "patched_sha256": "19c4411d79ff796a9d9e30d46ed6cd222b4023f467be9168f8f67a141583320d",
+  "reason": "Official py3-none wheel contains inconsistent cp36-cp36m WHEEL metadata",
+  "source_and_binary_payload_unchanged": true,
+  "unchanged_binary_sha256": "98b260c5812106648ba299279916fbe98439893e346d4efdcf5cde66ba8973da",
+  "upstream_sha256": "51997f20be8958e23b7c4061ba45d0efcd86bffd5fe81c695d0befee0d442976",
+  "upstream_url": "https://files.pythonhosted.org/packages/11/79/936af42edf90a7bd4e41a6cac89c913d4b47fa48a26b042d5129a9242ee3/decord-0.6.0-py3-none-manylinux2010_x86_64.whl",
+  "version": "0.6.0",
+  "wheel_filename": "decord-0.6.0-1kvc-py3-none-manylinux2010_x86_64.whl"
+}

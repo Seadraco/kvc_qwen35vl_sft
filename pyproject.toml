@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# Keep the installed distribution identifier for compatibility; the active model is Qwen3.5.
+name = "kvc-qwen3vl-sft"
+version = "0.2.0"
+description = "KVC Pass3 action prediction with Qwen3.5-9B and ms-swift"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "jsonschema>=4.20,<5",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,26 @@
+# Qwen3.5 migration pins. A GPU report determines the verified scope.
+# These constraints stop ancillary packages from silently replacing torch.
+pip==26.2.1
+setuptools==82.0.1
+wheel==0.48.0
+torch==2.6.0
+torchvision==0.21.0
+triton==3.2.0
+ms-swift==4.5.3
+transformers==5.9.0
+flash-linear-attention==0.4.2
+fla-core==0.4.2
+causal-conv1d==1.6.0
+liger-kernel==0.7.0
+deepspeed==0.18.8
+accelerate==1.14.0
+av==18.1.0
+decord==0.6.0
+datasets==4.8.4
+jsonschema==4.26.0
+modelscope==1.39.1
+peft==0.20.0
+qwen-vl-utils==0.0.14
+torchcodec==0.2.1
+tensorboard==2.21.0
+trl==0.29.1

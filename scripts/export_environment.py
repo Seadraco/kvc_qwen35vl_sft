@@ -1,0 +1,171 @@
+#!/usr/bin/env python3
+"""Export the active KVC conda environment without allocating GPU memory.
+
+Run after installation and GPU acceptance, using the target environment's Python.
+The pip lock excludes packages installed in separate setup phases. It intentionally
+does not guess hashes for arbitrary third-party artifacts or claim container/H800
+validation. The immutable model revision and local wheel repair have their own
+provenance records.
+"""
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import importlib.metadata as metadata
+import json
+import os
+from pathlib import Path
+import platform
+import re
+import shutil
+import subprocess
+import sys
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+SEPARATE_PACKAGES = {
+    "pip": "Conda-owned bootstrap package, fixed by the conda binary lock",
+    "setuptools": "Conda-owned bootstrap package, fixed by the conda binary lock",
+    "wheel": "Conda-owned bootstrap package, fixed by the conda binary lock",
+    "torch": "Installed from the cu124 index before the ordinary pip lock",
+    "torchvision": "Installed from the cu124 index before the ordinary pip lock",
+    "causal-conv1d": "Built after torch with the matching C++ ABI",
+    "decord": "Installed from the hash-verified metadata-repaired wheel",
+    "kvc-qwen3vl-sft": "Installed from this project at its new deployment path",
+}
+
+
+def canonical(name: str) -> str:
+    return re.sub(r"[-_.]+", "-", name).lower()
+
+
+def command(args: list[str], *, required: bool = True) -> dict[str, object]:
+    try:
+        result = subprocess.run(args, text=True, capture_output=True, timeout=120)
+    except (FileNotFoundError, subprocess.TimeoutExpired) as exc:
+        if required:
+            raise RuntimeError(f"Cannot run {args[0]}: {exc}") from exc
+        return {"argv": args, "available": False, "error": str(exc)}
+    if result.returncode and required:
+        raise RuntimeError(f"Command failed: {args!r}\n{result.stdout}\n{result.stderr}")
+    return {"argv": args, "returncode": result.returncode,
+            "stdout": result.stdout, "stderr": result.stderr}
+
+
+def json_bytes(value: object) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode()
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / "environment")
+    parser.add_argument("--conda", default=os.environ.get("CONDA_EXE") or shutil.which("conda"))
+    parser.add_argument("--overwrite", action="store_true", help="Refresh previously generated snapshots")
+    args = parser.parse_args()
+    if not args.conda:
+        parser.error("Specify --conda /path/to/conda/bin/conda")
+    if sys.version_info[:2] != (3, 12):
+        parser.error("Use the kvc_qwen35_sft Python 3.12 interpreter")
+
+    pip_check = command([sys.executable, "-m", "pip", "check"])
+    # Collect only: no multi-GiB archive, no ignored missing files, no GPU work.
+    from conda_pack import CondaEnv
+    packable = CondaEnv.from_prefix(sys.prefix, ignore_editable_packages=True)
+    pack_preflight = {"status": "passed", "files_collected": len(packable.files),
+                      "ignore_editable_packages": True, "ignore_missing_files": False,
+                      "archive_created": False}
+    freeze = command([sys.executable, "-m", "pip", "freeze", "--all"])["stdout"]
+    explicit = command([args.conda, "list", "--prefix", sys.prefix, "--explicit", "--md5"])["stdout"]
+    # A conda URL can contain channel credentials. Refuse publication instead
+    # of writing a misleading non-installable redacted binary lock.
+    for line in str(explicit).splitlines():
+        if line.startswith(("https://", "http://")):
+            authority = line.split("/", 3)[2]
+            if "@" in authority or re.search(r"/t/[^/]+/", line) or "?" in line:
+                raise RuntimeError("Conda explicit output contains credential-bearing URLs; review privately")
+
+    installed = []
+    editable = set()
+    seen: dict[str, str] = {}
+    project_metadata_locations = []
+    for dist in metadata.distributions():
+        name = dist.metadata.get("Name")
+        if not name:
+            continue
+        key = canonical(name)
+        if key == "kvc-qwen3vl-sft":
+            project_metadata_locations.append(str(getattr(dist, "_path", dist.locate_file(""))))
+        if key in seen:
+            raise RuntimeError(f"Duplicate distribution metadata: {key}")
+        seen[key] = dist.version
+        direct = dist.read_text("direct_url.json")
+        if direct and json.loads(direct).get("dir_info", {}).get("editable"):
+            editable.add(key)
+        installed.append({"name": key, "version": dist.version})
+    installed.sort(key=lambda item: item["name"])
+    skipped = set(SEPARATE_PACKAGES) | editable
+    lock = [
+        "# Generated by scripts/export_environment.py; do not edit manually.",
+        "# Ordinary pip dependencies only. Use scripts/setup_env.sh for installation.",
+        "# Separate phases: conda pip/setuptools/wheel, torch, torchvision, causal-conv1d, repaired decord, local project.",
+    ] + [f"{item['name']}=={item['version']}" for item in installed if item["name"] not in skipped]
+    torch_build = command([
+        sys.executable, "-c",
+        "import json,torch; print(json.dumps({'torch':torch.__version__,"
+        "'compiled_cuda':torch.version.cuda,'cxx11_abi':torch._C._GLIBCXX_USE_CXX11_ABI}))",
+    ])
+    host = {
+        "captured_at_utc": datetime.now(timezone.utc).isoformat(),
+        "python": sys.version, "python_executable": sys.executable, "prefix": sys.prefix,
+        "platform": platform.platform(), "machine": platform.machine(), "libc": platform.libc_ver(),
+        "pip_check": pip_check, "torch_build": torch_build,
+        "conda_pack_preflight": pack_preflight,
+        "gpu_inventory": command([
+            "nvidia-smi", "--query-gpu=index,name,memory.total,driver_version,compute_cap",
+            "--format=csv,noheader,nounits",
+        ], required=False),
+        "cuda_toolkit": command([os.environ.get("CUDA_HOME", "/usr/local/cuda-12.4") + "/bin/nvcc", "--version"], required=False),
+        "gcc": command(["gcc", "--version"], required=False),
+        "ffmpeg": command([str(Path(sys.prefix) / "bin/ffmpeg"), "-version"], required=False),
+        "conda": command([args.conda, "--version"]),
+        "packages": installed,
+        "project_metadata_locations": project_metadata_locations,
+        "lock_exclusions": {key: SEPARATE_PACKAGES.get(key, "Editable source package") for key in sorted(skipped)},
+        "execution_backends": {"training": "ms-swift Transformers / BF16 LoRA / DDP", "video": "TorchCodec"},
+        "note": "Inventory only; GPU training results and container/H800 acceptance are separate reports.",
+    }
+    outputs = {
+        "pip-freeze.txt": str(freeze).encode(),
+        "requirements-lock.txt": ("\n".join(lock) + "\n").encode(),
+        "conda-explicit-linux-64.txt": str(explicit).encode(),
+        "host.json": json_bytes(host),
+    }
+    manifest = {
+        "captured_at_utc": host["captured_at_utc"],
+        "artifacts": {name: hashlib.sha256(data).hexdigest() for name, data in outputs.items()},
+        "inputs": {},
+    }
+    for relative in ["requirements.txt", "constraints-tested.txt", "scripts/setup_env.sh",
+                     "scripts/repair_decord_wheel.py", "environment/wheels/decord-wheel-repair.json"]:
+        path = PROJECT_ROOT / relative
+        if path.exists():
+            manifest["inputs"][relative] = hashlib.sha256(path.read_bytes()).hexdigest()
+    outputs["export-manifest.json"] = json_bytes(manifest)
+    output_dir = args.output_dir.expanduser().resolve()
+    if not args.overwrite:
+        existing = [name for name in outputs if (output_dir / name).exists()]
+        if existing:
+            parser.error(f"Snapshots already exist: {existing}; pass --overwrite to intentionally refresh")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    for name, content in outputs.items():
+        path = output_dir / name
+        temporary = path.with_name(path.name + ".tmp")
+        temporary.write_bytes(content)
+        temporary.replace(path)
+        print(path, flush=True)
+    print(f"Exported {len(installed)} distributions; {len(installed) - len(skipped & set(seen))} ordinary lock entries")
+
+
+if __name__ == "__main__":
+    main()

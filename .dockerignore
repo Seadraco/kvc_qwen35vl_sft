@@ -1,0 +1,21 @@
+.git
+.conda-env
+**/__pycache__
+**/*.pyc
+.pytest_cache
+outputs
+reports
+data
+*.egg-info
+src/*.egg-info
+.env
+.env.*
+.hf_token
+.aws
+**/*.pem
+**/*.key
+# The canonical Dockerfile needs no COPY/ADD. Keep large artifacts and credentials
+# out of any submitted build context; mount project/data/models at runtime.
+environment/*.tar.gz
+model_cache
+models

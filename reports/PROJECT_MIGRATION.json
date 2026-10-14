@@ -1,0 +1,366 @@
+{
+  "date_utc": "2026-10-13",
+  "status": "complete",
+  "project_directory": "/home/tianhl/compression/kuaishou/kvc_qwen35vl_sft",
+  "previous_current_project": "/home/tianhl/compression/kuaishou/kvc_qwen35_sft",
+  "conda_environment_name": "kvc_qwen35_sft",
+  "python_package": "kvc_sft",
+  "distribution_name": "kvc-qwen3vl-sft",
+  "migrations": [
+    {
+      "from": "../kvc_qwen35_sft",
+      "to": ".",
+      "method": "same-filesystem rename; all existing contents retained"
+    },
+    {
+      "from": "../kvc_qwen3vl_sft/outputs",
+      "to": "outputs/history/kvc_qwen3vl_sft",
+      "method": "same-filesystem move; all previous checkpoints and logs retained"
+    },
+    {
+      "from": "../external_delivery",
+      "to": "data/raw/external_delivery",
+      "method": "same-filesystem move; raw business data retained"
+    },
+    {
+      "from": "../相关材料",
+      "to": "docs/business/相关材料",
+      "method": "same-filesystem move"
+    },
+    {
+      "from": "../项目方案",
+      "to": "docs/business/项目方案",
+      "method": "same-filesystem move"
+    },
+    {
+      "from": "../kvc_qwen35_sft.code-workspace",
+      "to": "kvc_qwen35vl_sft.code-workspace",
+      "method": "move and folder path set to '.'"
+    }
+  ],
+  "recovery_archives": [
+    {
+      "path": "outputs/migration_archive/kvc_qwen3vl_sft-source-before-removal-20261013.tar.gz",
+      "sha256": "ef7b29ca807d000714e1b027cc6052d0dedd6634e8dc099090a06513f14e6e1e",
+      "contents": "Old project source, configs, documentation, dependency locks and reports; excludes old Conda environment, outputs and Python caches"
+    },
+    {
+      "path": "outputs/migration_archive/runtime-metadata-before-move-20261013.tar.gz",
+      "sha256": "5958169c76c9c0ea336993c3b87d01ae1c102655aeccbd2e45b6ea9dce0af605",
+      "contents": "Original operational JSON metadata and logs before path repair; checkpoint weights and optimizer tensors moved rather than duplicated"
+    }
+  ],
+  "model_cache_verification": {
+    "model_revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "upstream_files_size_and_hash_verified_in_both_copies": 15,
+    "matching_download_manifests": 2,
+    "retained_model_directory": "models/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "removal_candidate": "../model_cache",
+    "literal_hyphenated_model_cache_directory_exists": false
+  },
+  "operational_metadata_path_repairs": [
+    {
+      "path": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/args.json",
+      "previous_sha256": "356a65fd17dbf820d14a19be90beff698357c0e6195bf05fd0ab37faf2a0ce64",
+      "current_sha256": "5cdd7aa29def16ae17042fdc4c990099ab6b798b586beed04799192858bacfd6"
+    },
+    {
+      "path": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/checkpoint-20/adapter_config.json",
+      "previous_sha256": "87324a5346f8d261d600806f56dfa63b3b2563a1ae1aca0d9005ebe96abc0755",
+      "current_sha256": "01146b64b1d77b003d0737b6abc2aaddfe1dc8dcad6b939ed604e31fe37ac8bc"
+    },
+    {
+      "path": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/checkpoint-20/args.json",
+      "previous_sha256": "3bc3f57c8d287bc613b68e237f4801e5c5727845ad8ef10421bda5aba331bb5d",
+      "current_sha256": "771b0627ed9d956b0f56f3bf53522a09e055402f04836ae65a92e3c4925a622f"
+    },
+    {
+      "path": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/checkpoint-22/adapter_config.json",
+      "previous_sha256": "87324a5346f8d261d600806f56dfa63b3b2563a1ae1aca0d9005ebe96abc0755",
+      "current_sha256": "01146b64b1d77b003d0737b6abc2aaddfe1dc8dcad6b939ed604e31fe37ac8bc"
+    },
+    {
+      "path": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/checkpoint-22/args.json",
+      "previous_sha256": "356a65fd17dbf820d14a19be90beff698357c0e6195bf05fd0ab37faf2a0ce64",
+      "current_sha256": "5cdd7aa29def16ae17042fdc4c990099ab6b798b586beed04799192858bacfd6"
+    },
+    {
+      "path": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/kvc_launch_contract.json",
+      "previous_sha256": "f59a504acafafba4af3b066ba487d0a57dec4a1702aad67531228393fee4abcd",
+      "current_sha256": "b3e39d3de5f59ca3b1724cc993f419bcff6bc44da7c7155b1d478aa4003b142b"
+    },
+    {
+      "path": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/kvc_resume_events.json",
+      "previous_sha256": "1665666414c7d162131d387ede306b73fb7314f142f452d13aca416a44999986",
+      "current_sha256": "d811feb5a618b957d8bb7a5f44c96361430e93c8e0e1c128fc919d65f471048b"
+    },
+    {
+      "path": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/kvc_run_manifest.json",
+      "previous_sha256": "38ac2a893dda2a0fcb4e87204311410f3370a970512e6afcf57cd3285b83a7d1",
+      "current_sha256": "e9d098a9214d2af674094ba03fbe2678355fdcc2962fa811369c7620cce7e8eb"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_capacity/args.json",
+      "previous_sha256": "904a1ac044d6aa2a1606b402975bc73bafe58ba85167b8e46e9312a540262037",
+      "current_sha256": "aece6afc7b381093a37a6f4e6a9ed4289c1fc3b59545f8a83e4004d39ceee0ab"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_capacity/checkpoint-2/adapter_config.json",
+      "previous_sha256": "10dfede5480ddfb4f3d56d3830fbb30a3dbfec5072275fc6a3f8cb2031468b70",
+      "current_sha256": "3d1fdf29c85b8b297ce3588555085e94a26979cfb20157b196e0b89f0ec84638"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_capacity/checkpoint-2/args.json",
+      "previous_sha256": "904a1ac044d6aa2a1606b402975bc73bafe58ba85167b8e46e9312a540262037",
+      "current_sha256": "aece6afc7b381093a37a6f4e6a9ed4289c1fc3b59545f8a83e4004d39ceee0ab"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_capacity/kvc_launch_contract.json",
+      "previous_sha256": "acd459c60270f7b9fd70c98c875a99df727327c06103fbcacdec1df58b4097fd",
+      "current_sha256": "e4ebca7d88b2fa4af51761c633bb73e3395f0d96a3fa3537d7d26ca5dbeff0b1"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_capacity/kvc_run_manifest.json",
+      "previous_sha256": "19547dfd3c6b8b4dd27eb6d7f2bd4b0e8c7cf2d71d4653c993213de5756a09f3",
+      "current_sha256": "a96110c909fce1d277c995ad60bdb40005c10078062b2a2ea5a6c03151a54886"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke/args.json",
+      "previous_sha256": "5073be67c8e60e9dff404eee7a51d50d21a871d66fe3a734ace289c0507a299b",
+      "current_sha256": "02464e3e88333069a23033714b7d2188e738b92e14836044337b17ce8b1ec5e4"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke/kvc_launch_contract.json",
+      "previous_sha256": "78f644d656908e1b3fec00a90b4228564fd8b0d812fbd6b76537b4448cc5e6c8",
+      "current_sha256": "ac37cfac491b8bb7f9ba086a79bc82f47a5d83b65df65b710925b0a2473815ed"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke_v2/args.json",
+      "previous_sha256": "9a35bc3258e8b9677985b1b58923f913a267432839083f219bef47f6f9277990",
+      "current_sha256": "25502e2f1c44ac421f50b7cf079fe74c96f155c7de45241ae27a49a451d4682d"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke_v2/checkpoint-2/adapter_config.json",
+      "previous_sha256": "a22e4053d25d1c0288183f80bdf245f91e24db32977d74afa975efc5e6ba6be1",
+      "current_sha256": "692b7bcc331c9ff72cea1d78fbf38dbe8756cb73d8f14f66988bccb29b0ada34"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke_v2/checkpoint-2/args.json",
+      "previous_sha256": "8473c2374b4c98c29d68f37ea3d1599673e4ac1587893ffa9e90011879dd0ec6",
+      "current_sha256": "3b18fbd542cdd6ea93df1640d077cb517844fb5fb8a8720cf9a2e8b75eacd941"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke_v2/checkpoint-4/adapter_config.json",
+      "previous_sha256": "a22e4053d25d1c0288183f80bdf245f91e24db32977d74afa975efc5e6ba6be1",
+      "current_sha256": "692b7bcc331c9ff72cea1d78fbf38dbe8756cb73d8f14f66988bccb29b0ada34"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke_v2/checkpoint-4/args.json",
+      "previous_sha256": "9a35bc3258e8b9677985b1b58923f913a267432839083f219bef47f6f9277990",
+      "current_sha256": "25502e2f1c44ac421f50b7cf079fe74c96f155c7de45241ae27a49a451d4682d"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke_v2/kvc_launch_contract.json",
+      "previous_sha256": "713036fe72af2d232f4f2f884d914dd642171b44ea577944ad069052881f3d9f",
+      "current_sha256": "191873311608da0cf23db487acb3e901f017042946e2d5bcc6ef9bd73c354fa4"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke_v2/kvc_resume_events.json",
+      "previous_sha256": "6f3a2e327ba18bac880dd29d99c0e686f9406b7c30d5e45d23a72d32892cf7fe",
+      "current_sha256": "652fa664499869d29a701c51321f8f6c120129e33b7ef054a9b3ea65c819c2e9"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_ddp_smoke_v2/kvc_run_manifest.json",
+      "previous_sha256": "a5cb8d162de3163748652d620adc215074ac6e05d71cb29aa3d68674de12ccde",
+      "current_sha256": "0c6af094481dcfe36ba0e0eb2fd624fd64ba3051e6078eb8a7c637535e1e8c94"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_tiny_overfit/args.json",
+      "previous_sha256": "d55e58057b11f413785e8abe504ca7e35b6617ffddc811d7aa20f78ea0f7f752",
+      "current_sha256": "8b2816dc3a3e07524110d12c92cf8e7e9b0c12e9742899373eadc32f3ab412fa"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_tiny_overfit/checkpoint-20/adapter_config.json",
+      "previous_sha256": "764d3476374001b43833a5410e0d64fe9007677db62231db6563cf136827f29b",
+      "current_sha256": "5b9633bf77507847137375d996cf0e4c47ba74737d8b4108be0c87bb27099330"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_tiny_overfit/checkpoint-20/args.json",
+      "previous_sha256": "d55e58057b11f413785e8abe504ca7e35b6617ffddc811d7aa20f78ea0f7f752",
+      "current_sha256": "8b2816dc3a3e07524110d12c92cf8e7e9b0c12e9742899373eadc32f3ab412fa"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_tiny_overfit/kvc_launch_contract.json",
+      "previous_sha256": "52b4e7324764231c11cd3f959cdbfb375b831e28a0b45f765a8f2cad43cb0ea1",
+      "current_sha256": "60822fa34e5afdbec882a0f44e759667c73e2196f5c796ea713f506c2fe80105"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/qwen35_tiny_overfit/kvc_run_manifest.json",
+      "previous_sha256": "6f1972654f06dbff3cdda32e2838f73155bbcd29250494a226e829d883d2d2e2",
+      "current_sha256": "e9cb74b64e8522dd68c81ca87d82aaf942404830d3a92cfc275747275f93fa74"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/smoke/args.json",
+      "previous_sha256": "e88c08a11ddfcba9f99907d435f2c10a91b2a9cfd9ab2c6690575153163d6b56",
+      "current_sha256": "3d66232d8437bb5bece0db6c04c3e88bd62806e42118fa04f16e1ce5cd6f2ec1"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/smoke/checkpoint-2/args.json",
+      "previous_sha256": "e88c08a11ddfcba9f99907d435f2c10a91b2a9cfd9ab2c6690575153163d6b56",
+      "current_sha256": "3d66232d8437bb5bece0db6c04c3e88bd62806e42118fa04f16e1ce5cd6f2ec1"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/smoke/kvc_run_manifest.json",
+      "previous_sha256": "01fb706adca3ccf780ceebe836ddf0d07b648a1933e78a26fbce1233a2a0ff85",
+      "current_sha256": "306c9e461af19ac89ec7098e08438e7485062735af2a42afb46fcd48509a9c90"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_final/args.json",
+      "previous_sha256": "1b76111a26fd17a423d1741d27d992086e1ab5619442823bff7d8548184868f1",
+      "current_sha256": "8e0370cd91bf5c215abc8e8893030b684b61638d3fcb769079cd480246a5b287"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_final/checkpoint-2/args.json",
+      "previous_sha256": "1b76111a26fd17a423d1741d27d992086e1ab5619442823bff7d8548184868f1",
+      "current_sha256": "8e0370cd91bf5c215abc8e8893030b684b61638d3fcb769079cd480246a5b287"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_final/kvc_run_manifest.json",
+      "previous_sha256": "c4b99815ff15eaeebddab6aac59aafcd2b9f2b3cc170fe2afcdbf0fe73bd4ade",
+      "current_sha256": "aca8de3b61b553548be5c8dd3678eedd51e35096e14572b82f77c8d1a04236bd"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_release/args.json",
+      "previous_sha256": "43616268b60896fce8a90ae2c4810d97ff3aad879e088e986dbb7de9a3e4ee2e",
+      "current_sha256": "69b86625888c6ff12604b60b46866dd0cefc4bcc826517369b63d6708f939fc1"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_release/checkpoint-2/args.json",
+      "previous_sha256": "43616268b60896fce8a90ae2c4810d97ff3aad879e088e986dbb7de9a3e4ee2e",
+      "current_sha256": "69b86625888c6ff12604b60b46866dd0cefc4bcc826517369b63d6708f939fc1"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_release/kvc_run_manifest.json",
+      "previous_sha256": "ff63ccbb8bb727af69f9409af3c12bffb6dae182b8e2d1e007a82cc18d9d134e",
+      "current_sha256": "f55bfd8612d1b5e55a5e7f70f725e34bb0a069efaad06a89711a79645bbfc7e4"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_v3/args.json",
+      "previous_sha256": "2f7858f76d05560b29a5f483bd9ca1517e737837718942243abb26612afb0536",
+      "current_sha256": "f7a78095ec30985a09c1dc27d2c0d25eccf250b1c075fa553ff781bf78a52237"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_v3/checkpoint-2/args.json",
+      "previous_sha256": "2f7858f76d05560b29a5f483bd9ca1517e737837718942243abb26612afb0536",
+      "current_sha256": "f7a78095ec30985a09c1dc27d2c0d25eccf250b1c075fa553ff781bf78a52237"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_smoke_v3/kvc_run_manifest.json",
+      "previous_sha256": "8c39264d5ee7b540e92e2a27148d90be8d4480c2772cbc923ff7122bbbdc4071",
+      "current_sha256": "5d021225758457f0f25b03861b3e56fa0baae5db15f106a1feb698718a011e17"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_tiny_overfit_release/args.json",
+      "previous_sha256": "14f963d6d3893dba32a530d3062d371b036c12d4b618d1000df7ed519a607eb7",
+      "current_sha256": "a39b08f3d9ab5aab2f0b4abfa84ec4eabf52a8cc0982043a5e69dd99d9b385e8"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_tiny_overfit_release/checkpoint-50/args.json",
+      "previous_sha256": "14f963d6d3893dba32a530d3062d371b036c12d4b618d1000df7ed519a607eb7",
+      "current_sha256": "a39b08f3d9ab5aab2f0b4abfa84ec4eabf52a8cc0982043a5e69dd99d9b385e8"
+    },
+    {
+      "path": "outputs/history/kvc_qwen3vl_sft/verified_tiny_overfit_release/kvc_run_manifest.json",
+      "previous_sha256": "166ddd87c5457c3e5e649815059b461e0befd08c69bee84b908b946896a65594",
+      "current_sha256": "14ddf90acd280e213fca512534d5d25d5321b801b959ddc4fc1e99318b6553b9"
+    }
+  ],
+  "additional_path_repairs": [
+    "reports/qwen35_capacity_fixture.jsonl",
+    "11 absolute pytest cache/result symlinks"
+  ],
+  "raw_historical_logs_and_reports_kept_as_evidence": true,
+  "historical_qwen3vl_artifacts_are_archived_not_certified_by_current_qwen35_environment": true,
+  "package_excludes": [
+    "models",
+    "model_cache",
+    "data/raw",
+    "outputs",
+    ".cache",
+    ".conda-env",
+    "credentials"
+  ],
+  "deletion_completed": true,
+  "new_gpu_training_or_docker_image_build_performed": false,
+  "removal_method": "Recoverable system trash; trash was not emptied and disk space was not reclaimed",
+  "removed_directories": [
+    {
+      "original_path": "/home/tianhl/compression/kuaishou/kvc_qwen3vl_sft",
+      "trash_location": "/home/tianhl/.local/share/Trash/files/kvc_qwen3vl_sft",
+      "trash_info": "/home/tianhl/.local/share/Trash/info/kvc_qwen3vl_sft.trashinfo",
+      "allocated_bytes_before_removal": 7270948864
+    },
+    {
+      "original_path": "/home/tianhl/compression/kuaishou/model_cache",
+      "trash_location": "/home/tianhl/.local/share/Trash/files/model_cache",
+      "trash_info": "/home/tianhl/.local/share/Trash/info/model_cache.trashinfo",
+      "allocated_bytes_before_removal": 19329458176
+    }
+  ],
+  "verification": {
+    "old_source_files_compared_byte_for_byte_with_recovery_archive": 118,
+    "operational_json_files_with_verified_path_only_replacements": 43,
+    "capacity_fixture_video_and_feature_paths_valid": true,
+    "editable_install_url": "file:///home/tianhl/compression/kuaishou/kvc_qwen35vl_sft",
+    "import_without_pythonpath": "src/kvc_sft/__init__.py",
+    "dependency_versions_not_reinstalled": true,
+    "pip_check": "No broken requirements found.",
+    "named_conda_environment_listed": true,
+    "before_removal_cpu_tests": {
+      "passed": 144,
+      "elapsed_seconds": 36.74
+    },
+    "after_removal_cpu_tests": {
+      "passed": 144,
+      "elapsed_seconds": 34.85,
+      "PYTHONPATH": "",
+      "CUDA_VISIBLE_DEVICES": ""
+    },
+    "full_ddp_state_checkpoints_checked": [
+      "checkpoint-20",
+      "checkpoint-22"
+    ],
+    "resolved_latest_checkpoint": "outputs/dual_gpu_acceptance_20261013_s1HDjO/train/checkpoint-22",
+    "local_adapter_base_model_paths_valid": true,
+    "raw_business_video_and_253_dimension_fixture_generation": "passed; synthetic labels remain capacity-test-only",
+    "checkpoint_adapter_sha256": {
+      "checkpoint-20": "f427d3a3e11e1cd4e86259070488df7fe439652d8b35a72051155f9739aedadb",
+      "checkpoint-22": "9142f21b13a79bbe795c1f27043a68cadb43b365bf1f0fd03b5e088654145c34"
+    },
+    "checkpoint_binary_weights_and_optimizer_states": "Retained through same-filesystem moves; only selected text metadata paths were edited",
+    "accessible_process_reference_check": {
+      "pids_scanned": 1878,
+      "unreadable_maps": 669,
+      "matches": 0,
+      "scope": "Accessible cwd/exe/maps/fd; inaccessible processes are not certified"
+    }
+  },
+  "dockerfile": {
+    "path": "Dockerfile",
+    "sha256": "eaf2523ef0597cc546cdec48a581d2cac0f40d17bcf6f3e2c1bace57b04e484e",
+    "changes": "Updated mounted project path in an installation comment and removed trailing whitespace after a Torch RUN continuation backslash",
+    "conda_name_and_pinned_dependencies_unchanged": true
+  },
+  "code_upload": {
+    "archive": "outputs/uploads/kvc_qwen35vl_sft-code-migrated-20261013.tar.gz",
+    "checksum_file": "outputs/uploads/kvc_qwen35vl_sft-code-migrated-20261013.tar.gz.sha256",
+    "generation_script": "scripts/package_upload.sh",
+    "heavy_runtime_artifacts_and_credentials_excluded": true
+  },
+  "remaining_outer_items_not_deleted": [
+    "Docker参考",
+    "Dockerfile.shili",
+    "src_video",
+    "260905_MdMdHi_s0_189508956755_external_delivery.zip"
+  ]
+}

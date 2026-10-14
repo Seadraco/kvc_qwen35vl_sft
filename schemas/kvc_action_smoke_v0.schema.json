@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kvc_action_smoke_v0.schema.json",
+  "title": "KVC Pass3 smoke-test action",
+  "description": "A deliberately small, simulated action space for validating the Qwen3-VL SFT pipeline.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "qp",
+    "alf",
+    "sao",
+    "affine",
+    "geo",
+    "mip",
+    "lfnst",
+    "sbt",
+    "ibc"
+  ],
+  "properties": {
+    "schema": {"const": "kvc_action_smoke_v0"},
+    "qp": {"type": "integer", "enum": [30, 31, 32, 33, 34]},
+    "alf": {"type": "integer", "enum": [0, 1]},
+    "sao": {"type": "integer", "enum": [0, 1]},
+    "affine": {"type": "integer", "enum": [0, 4]},
+    "geo": {"type": "integer", "enum": [0, 4]},
+    "mip": {"type": "integer", "enum": [0, 1]},
+    "lfnst": {"type": "integer", "enum": [0, 1]},
+    "sbt": {"type": "integer", "enum": [0, 1]},
+    "ibc": {"type": "integer", "enum": [0, 2]}
+  }
+}
+
