@@ -14,6 +14,7 @@ outputs/*
 reports/*
 !reports/.gitkeep
 !reports/QWEN35_SMOKE_TEST.md
+!reports/qwen35_kernel_check.json
 !reports/IMAGE_AUDIT.json
 !reports/CLEANUP_AUDIT.json
 !reports/DUAL_GPU_ACCEPTANCE.json

@@ -1,0 +1,11 @@
+{
+  "status": "ok",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.6.0+cu124",
+  "cuda_runtime": "12.4",
+  "fla_version": "0.4.2",
+  "fla_bf16_forward_backward": true,
+  "fla_loss": 3.548574750311673e-05,
+  "causal_conv1d_version": "1.6.0",
+  "causal_conv1d_bf16_forward_backward": true
+}
