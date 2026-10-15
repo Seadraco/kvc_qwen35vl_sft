@@ -2,7 +2,7 @@
 
 目标是复现当前 Qwen3.5-9B 双卡 LoRA smoke / tiny-overfit 链路，不是正式业务效果验收。
 源码、Dockerfile、依赖文件、smoke JSONL/schema、两个测试视频和修复 Decord wheel 均随 Git 克隆；模型权重另行下载。
-聊天备份、原始业务数据、既有 checkpoint 和运行缓存不在 GitHub 中。
+经用户明确要求同步的脱敏聊天文字与项目摘要位于 [docs/ai_handoff/](ai_handoff/README.md)。原始后台记录、私密工具日志、原始业务数据、既有 checkpoint 和运行缓存不在 GitHub 中。
 
 ## 1. 克隆代码
 
@@ -157,7 +157,8 @@ CUDA_VISIBLE_DEVICES=1 bash scripts/infer_and_validate.sh "$OVERFIT_DIR" 1
 | `data/raw/external_delivery/`，约 4.4G | 否 | 不影响 smoke；业务容量/正式数据加工需要时私下同步 |
 | `outputs/.../train/`，含 adapter 和完整训练状态 | 否 | 从头训练不需要；复用 adapter/续训才需同步 |
 | 详细 `reports/` 日志及容量 fixture | 部分，默认只提交摘要 | 不影响 smoke；目标机器重新运行可生成新证据 |
-| 聊天备份、缓存、Conda 安装目录、已构建镜像 | 否 | 不作为 GitHub 下载内容 |
+| 脱敏聊天文字与 AI 项目摘要 `docs/ai_handoff/` | 是 | 不影响训练，可用于新 AI 接续上下文 |
+| 原始会话/私密工具日志、缓存、Conda 安装目录、已构建镜像 | 否 | 不作为 GitHub 下载内容 |
 
 业务样例与既有 adapter 不是公开托管资源，当前没有可提供的公开下载 URL。需要它们时，在目标服务器使用受信任的 SSH/SFTP，替换下面的源机器地址：
 

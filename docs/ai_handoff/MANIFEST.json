@@ -1,0 +1,22 @@
+{
+  "format": "redacted-visible-chat-handoff-v1",
+  "exported_at": "2026-10-15T09:57:09.544158+08:00",
+  "timezone": "Asia/Shanghai",
+  "messages": 458,
+  "user_messages": 141,
+  "assistant_messages": 317,
+  "first_message_at": "2026-09-03T11:40:30.711Z",
+  "last_message_at": "2026-10-15T01:54:14.123Z",
+  "tool_logs_included": false,
+  "native_session_files_included": false,
+  "credentials_or_config_files_included": false,
+  "binary_attachments_included": false,
+  "native_session_import_supported": false,
+  "redaction": "Best-effort credential masking plus review; not a universal public-release safety guarantee",
+  "artifacts": {
+    "CHAT_HISTORY.md": {
+      "bytes": 798330,
+      "sha256": "2e34579c2c0537d24e4496da5c89506e35e1a36d6c62fe87aee3f304a19da02c"
+    }
+  }
+}

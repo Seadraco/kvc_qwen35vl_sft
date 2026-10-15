@@ -21,6 +21,7 @@ reports/*
 !reports/PROJECT_MIGRATION.json
 
 # Private conversation exports; transfer separately, never publish by default.
+# A reviewed, message-only handoff is explicitly published under docs/ai_handoff/.
 /codex_context/
 
 # Local-only company transfer draft and credentials; never publish by default.
