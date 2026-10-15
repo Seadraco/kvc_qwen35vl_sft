@@ -1,0 +1,28 @@
+{
+  "codex_cli": "0.162.1",
+  "scope": "Source machine, isolated temporary CODEX_HOME and CODEX_SQLITE_HOME, no authentication files copied",
+  "thread_id": "01a06711-2544-7d51-9b10-b2e8ce59f55e",
+  "package_checksum_verified": true,
+  "encrypted_roundtrip_verified": true,
+  "scoped_migrate_rollouts_status": "migrated",
+  "thread_read": {
+    "turns": 120,
+    "items": {
+      "userMessage": 122,
+      "agentMessage": 333,
+      "commandExecution": 1064,
+      "collabAgentToolCall": 24,
+      "imageView": 16,
+      "webSearch": 101,
+      "contextCompaction": 19,
+      "fileChange": 195
+    }
+  },
+  "thread_resume_verified": true,
+  "model_turn_started": false,
+  "historical_commands_executed": false,
+  "source_session_modified": false,
+  "cpu_tests_passed": 157,
+  "target_server_import_tested": false,
+  "ide_history_visibility_tested": false
+}

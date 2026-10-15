@@ -1,0 +1,30 @@
+{
+  "format": "codex-filtered-rollout-transfer-v1",
+  "thread_id": "01a06711-2544-7d51-9b10-b2e8ce59f55e",
+  "exported_at": "2026-10-15T03:01:35.729178+00:00",
+  "last_record_at": "2026-10-15T03:01:24.445Z",
+  "source_segments": 5,
+  "records": 4835,
+  "visible_response_messages": {
+    "user": 144,
+    "assistant": 330
+  },
+  "tool_call_and_output_records": 2247,
+  "native_rendered_history_items": 1874,
+  "rollout_bytes": 37967217,
+  "rollout_sha256": "81f19d683c35a77a04f18a572b7a7b9c01a24aaa6d54a05cb2979e029680135a",
+  "archive": {
+    "file": "conversation.tar.gz.gpg",
+    "bytes": 8960418,
+    "sha256": "3baea0b588a4402934d0cbbaefabfacf70b258e332c98ae95fbcfc590ddb6907",
+    "encryption": "GnuPG symmetric AES256; passphrase distributed separately",
+    "encrypted_roundtrip_verified": true
+  },
+  "internal_reasoning_included": false,
+  "system_developer_instructions_included": false,
+  "authentication_files_included": false,
+  "binary_attachments_included": false,
+  "raw_runtime_backup": false,
+  "originals_modified": false,
+  "notes": "Existing visible rollout records are merged and filtered. Native rendered message groups and response message counts differ. Historical commands are not replayed."
+}
